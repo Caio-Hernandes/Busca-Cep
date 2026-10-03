@@ -10,6 +10,8 @@ import type {
   SearchByAddressQuery
 } from "../types/search.types";
 
+import { AppError } from "../errors/app-error";
+
 
 export const searchByCep = async (
   req: Request<SearchByCepParams>,
@@ -26,16 +28,20 @@ export const searchByCep = async (
       });
     }
 
-    const result = await handleSearchByCep(cleanCep);
+    const result =
+      await handleSearchByCep(cleanCep);
 
     return res.status(200).json(result);
 
   } catch (error) {
-    return res.status(400).json({
-      error:
-        error instanceof Error
-          ? error.message
-          : "Erro ao buscar CEP"
+    if (error instanceof AppError) {
+      return res.status(error.statusCode).json({
+        error: error.message
+      });
+    }
+
+    return res.status(500).json({
+      error: "Erro interno do servidor"
     });
   }
 };
@@ -59,7 +65,8 @@ export const searchByAddress = async (
       cidade.trim().length < 3
     ) {
       return res.status(400).json({
-        error: "Rua e cidade devem possuir pelo menos 3 caracteres"
+        error:
+          "Rua e cidade devem possuir pelo menos 3 caracteres"
       });
     }
 
@@ -69,20 +76,24 @@ export const searchByAddress = async (
       });
     }
 
-    const result = await handleSearchByAddress(
-      rua.trim(),
-      cidade.trim(),
-      uf.trim().toUpperCase()
-    );
+    const result =
+      await handleSearchByAddress(
+        rua.trim(),
+        cidade.trim(),
+        uf.trim().toUpperCase()
+      );
 
     return res.status(200).json(result);
 
   } catch (error) {
-    return res.status(400).json({
-      error:
-        error instanceof Error
-          ? error.message
-          : "Erro ao buscar endereço"
+    if (error instanceof AppError) {
+      return res.status(error.statusCode).json({
+        error: error.message
+      });
+    }
+
+    return res.status(500).json({
+      error: "Erro interno do servidor"
     });
   }
 };

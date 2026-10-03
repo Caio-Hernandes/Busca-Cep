@@ -3,45 +3,81 @@ import type {
   ViaCepError
 } from "../types/search.types";
 
+import { AppError } from "../errors/app-error";
+
+
 export const handleSearchByCep = async (
   cep: string
 ): Promise<ViaCepAddress> => {
   const cleanCep = cep.replace(/\D/g, "");
 
-  const response = await fetch(
-    `https://viacep.com.br/ws/${cleanCep}/json/`
-  );
+  let response: Response;
 
-  if (!response.ok) {
-    throw new Error("Erro ao consultar ViaCEP");
+  try {
+    response = await fetch(
+      `https://viacep.com.br/ws/${cleanCep}/json/`
+    );
+  } catch {
+    throw new AppError(
+      "Erro ao consultar ViaCEP",
+      502
+    );
   }
 
-  const data = await response.json() as ViaCepAddress | ViaCepError;
+  if (!response.ok) {
+    throw new AppError(
+      "Erro ao consultar ViaCEP",
+      502
+    );
+  }
+
+  const data =
+    await response.json() as ViaCepAddress | ViaCepError;
 
   if ("erro" in data) {
-    throw new Error("CEP não encontrado");
+    throw new AppError(
+      "CEP não encontrado",
+      404
+    );
   }
 
   return data;
 };
+
 
 export const handleSearchByAddress = async (
   rua: string,
   cidade: string,
   uf: string
 ): Promise<ViaCepAddress[]> => {
-  const response = await fetch(
-    `https://viacep.com.br/ws/${encodeURIComponent(uf)}/${encodeURIComponent(cidade)}/${encodeURIComponent(rua)}/json/`
-  );
+  let response: Response;
 
-  if (!response.ok) {
-    throw new Error("Erro ao consultar ViaCEP");
+  try {
+    response = await fetch(
+      `https://viacep.com.br/ws/${encodeURIComponent(uf)}/${encodeURIComponent(cidade)}/${encodeURIComponent(rua)}/json/`
+    );
+  } catch {
+    throw new AppError(
+      "Erro ao consultar ViaCEP",
+      502
+    );
   }
 
-  const data = await response.json() as ViaCepAddress[];
+  if (!response.ok) {
+    throw new AppError(
+      "Erro ao consultar ViaCEP",
+      502
+    );
+  }
+
+  const data =
+    await response.json() as ViaCepAddress[];
 
   if (!Array.isArray(data) || data.length === 0) {
-    throw new Error("Nenhum endereço encontrado");
+    throw new AppError(
+      "Nenhum endereço encontrado",
+      404
+    );
   }
 
   return data;
