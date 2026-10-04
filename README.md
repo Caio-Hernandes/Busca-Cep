@@ -56,15 +56,15 @@ A interface também possui suporte a:
 
 ### Consulta de endereço
 
-![Tela de consulta](./docs/images/search.png)
+![Tela de consulta](search.png)
 
 ### Resultados da consulta CEP
 
-![Resultados da consulta para CEP](./docs/images/CEP-Praça-da-Sé.png)
+![Resultados da consulta para CEP](CEP-Praça-da-Sé.png)
 
 ### Resultados da consulta Endereço
 
-![Resultados da consulta para Endereço](./docs/images/Avenida-Paulista.png)
+![Resultados da consulta para Endereço](Avenida-Paulista.png)
 
 # Arquitetura
 
