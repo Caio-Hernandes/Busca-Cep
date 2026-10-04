@@ -52,6 +52,20 @@ A interface também possui suporte a:
 
 ---
 
+## Interface
+
+### Consulta de endereço
+
+![Tela de consulta](./docs/images/search.png)
+
+### Resultados da consulta CEP
+
+![Resultados da consulta para CEP](./docs/images/CEP-Praça-da-Sé.png)
+
+### Resultados da consulta Endereço
+
+![Resultados da consulta para Endereço](./docs/images/Avenida-Paulista.png)
+
 # Arquitetura
 
 A aplicação utiliza uma arquitetura separada entre frontend e backend.
