@@ -60,11 +60,11 @@ A interface também possui suporte a:
 
 ### Resultados da consulta CEP
 
-![Resultados da consulta para CEP](CEP-Praça-da-Sé.png)
+![Resultados da consulta para CEP](cep-praca-da-se.png)
 
 ### Resultados da consulta Endereço
 
-![Resultados da consulta para Endereço](Avenida-Paulista.png)
+![Resultados da consulta para Endereço](avenida-paulista.png)
 
 # Arquitetura
 
