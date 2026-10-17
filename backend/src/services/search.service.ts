@@ -53,8 +53,12 @@ export const handleSearchByAddress = async (
   let response: Response;
 
   try {
-    response = await fetch(
-      `https://viacep.com.br/ws/${encodeURIComponent(uf)}/${encodeURIComponent(cidade)}/${encodeURIComponent(rua)}/json/`
+    response = await fetch( //fetch pra fazer a requisição
+      `https://viacep.com.br/ws/
+      ${encodeURIComponent(uf)}/
+      ${encodeURIComponent(cidade)}/
+      ${encodeURIComponent(rua)}/json/` //encode é pra transformar o texto bruto
+                                        //em texto p/ url, tipo "São paulo" vira "S%C3%A3o%20Paulo"
     );
   } catch {
     throw new AppError(

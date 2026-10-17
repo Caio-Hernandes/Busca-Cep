@@ -3,7 +3,7 @@ import type {
   SearchByAddressParams
 } from "../types/search.types";
 
-const API_URL = import.meta.env.VITE_API_URL;
+const API_URL = import.meta.env.VITE_API_URL;  //url do backend
 
 export const searchByCep = async (
   cep: string
@@ -25,17 +25,17 @@ export const searchByCep = async (
   return data;
 };
 
-export const searchByAddress = async (
+export const searchByAddress = async (  //função do frontend que busca o endereço pelo backend
   params: SearchByAddressParams
-): Promise<Address[]> => {
-  const query = new URLSearchParams({
+): Promise<Address[]> => { //retorna um array de endereços
+  const query = new URLSearchParams({ //montando objeto usando os parâmetros da request pra enviar para o backend
     uf: params.uf,
     cidade: params.cidade,
     rua: params.rua
   });
 
-  const response = await fetch(
-    `${API_URL}/search/address?${query.toString()}`
+  const response = await fetch( //passando o retorno do fetch para a variável response, que é uma promise
+    `${API_URL}/search/address?${query.toString()}` 
   );
 
   const data = await response.json();

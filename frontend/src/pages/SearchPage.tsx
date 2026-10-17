@@ -8,21 +8,21 @@ import type { Address } from "../types/search.types";
 
 type PageState = "FORM" | "RESULTS";
 
-const SearchPage = () => {
+const SearchPage = () => { //função que renderiza a página de busca, com o formulário e os resultados
   const [pageState, setPageState] =
     useState<PageState>("FORM");
 
-  const [results, setResults] =
+  const [results, setResults] = //função que armazena os resultados da busca
     useState<Address[]>([]);
 
-  const handleSearchComplete = (
-    searchResults: Address[]
+  const handleSearchComplete = ( //função que atualiza o estado da página para exibir os resultados da busca
+    searchResults: Address[] //array de objetos do tipo Address
   ) => {
     setResults(searchResults);
     setPageState("RESULTS");
   };
 
-  const handleNewSearch = () => {
+  const handleNewSearch = () => { //função que limpa os resultados e volta para a página de formulário
     setResults([]);
     setPageState("FORM");
   };
@@ -38,11 +38,13 @@ const SearchPage = () => {
         </Subtitle>
       </Hero>
 
+      //passando a função handleSearchComplete como prop para o componente SearchForm, que será chamada quando a busca for concluída
+
       {pageState === "FORM" && (
-        <SearchForm
-          onSearchComplete={handleSearchComplete}
+        <SearchForm onSearchComplete={handleSearchComplete}  // os {} servem pra passar js dentro do jsx
         />
       )}
+      //passando a variável results e a função handleNewSearch como props para o componente SearchResults, que será chamada quando outra busca for iniciada
 
       {pageState === "RESULTS" && (
         <SearchResults

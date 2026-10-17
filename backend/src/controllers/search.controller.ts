@@ -48,7 +48,7 @@ export const searchByCep = async (
 
 
 export const searchByAddress = async (
-  req: Request<{}, {}, {}, SearchByAddressQuery>,
+  req: Request<{}, {}, {}, SearchByAddressQuery>, //Request<Params, ResBody, ReqBody, ReqQuery> -> tipar determinado campo do request
   res: Response
 ) => {
   try {

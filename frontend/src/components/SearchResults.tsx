@@ -9,7 +9,7 @@ interface SearchResultsProps {
 }
 
 interface PageButtonProps {
-  $active: boolean;
+  isActive: boolean;
 }
 
 const ITEMS_PER_PAGE = 10;
@@ -40,7 +40,7 @@ const SearchResults = ({
   );
 
   const handlePreviousPage = () => {
-    setCurrentPage((page) =>
+    setCurrentPage((page) =>  //aqui page poderia ser qualquer coisa, é só uma variável que representa o estado atual da página
       Math.max(page - 1, 1)
     );
   };
@@ -92,7 +92,11 @@ const SearchResults = ({
             </thead>
 
             <tbody>
-              {currentResults.map(
+              //faz o map pro objeto adress e pro index do objeto dentro do array,
+              //aí  retorna um por um dentro de uma tr, que é uma linha da tabela,
+              //e dentro da tr tem td, que é uma célula da tabela, e dentro do td
+              //tem o valor do objeto address que tá sendo mapeado
+              {currentResults.map(  
                 (address, index) => (
                   <tr
                     key={`${address.cep}-${startIndex + index}`}
@@ -181,7 +185,7 @@ const SearchResults = ({
                     <PageButton
                       key={page}
                       type="button"
-                      $active={
+                      isActive={
                         currentPage === page
                       }
                       onClick={() =>
@@ -473,13 +477,13 @@ const PageButton = styled.button<PageButtonProps>`
 
   border-radius: 7px;
 
-  background: ${({ $active, theme }) =>
-    $active
+  background: ${({ isActive, theme }) =>
+    isActive
       ? theme.colors.primary
       : theme.colors.cardSecondary};
 
-  color: ${({ $active, theme }) =>
-    $active
+  color: ${({ isActive, theme }) =>
+    isActive
       ? "#ffffff"
       : theme.colors.text};
 
